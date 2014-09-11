@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Graph Representation : A program to read a text file that contains a graph&#39;s elements as vertices and weighted edges and find the shortest path using Dijkstra&#39;s algorithm">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Graph Representation</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/HaniNYC/GraphRepresentation">View on GitHub</a>
+
+          <h1 id="project_title">Graph Representation</h1>
+          <h2 id="project_tagline">A program to read a text file that contains a graph&#39;s elements as vertices and weighted edges and find the shortest path using Dijkstra&#39;s algorithm</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/HaniNYC/GraphRepresentation/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/HaniNYC/GraphRepresentation/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <pre><code>                                      Graph Representation   
+</code></pre>
+
+<h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description:</h2>
+
+<p>The program will read a text file that contains a graph elements - vertices and weighted edges - as shown below. </p>
+
+<hr><p>5                       &lt;--- number of total vertices in the graph<br>
+0 1 0.2 3 10.1 4 .5 -1  &lt;-- a starting vertex(0) and its adjacent vertices followed by the edge weight ie: 0 ---0.2---&gt; 1, 0 -----10.1---&gt; 3  etc. 
+1 0 1.5 -1
+2 1 100 3 50.2 -1
+3 -1
+4 1 10.5 2 13.9 -1</p>
+
+<hr><p>After the graph is implemented using the adjacency list,the program will find all the shortest paths- using Dijkstra's algorithm- to every vertex in the graph
+when a starting vertex is giving. 
+The idea is to traverse all vertices of graph using BreadthFirst Search and use a Mutable Priority queue to store the vertices not yet included in shortest Path Tree
+or the vertices for which shortest distance is not finalized yet.Therefore, Mutable Priority Queue is used to store/get the minimum distance for vertices. 
+Note :decreasekey() will be used to update the shortest distances for vertices.</p>
+
+<h2>
+<a name="time-complexity-analysis" class="anchor" href="#time-complexity-analysis"><span class="octicon octicon-link"></span></a>Time Complexity Analysis:</h2>
+
+<p>The time complexity without using Mutable Priority Queue would be O(V^2) because there are two nested loops. But because Mutable Priority Queue was used , the inner loop<br>
+are executed O(V+E)  times only -Breadth First Search -. The  decreaseKey() operation takes O(LogV)time.So overall time complexity is 
+ O(E+V)*O(LogV) which is O((E+V)*LogV) = O(ELogV)</p>
+
+<h2>
+<a name="files-included-" class="anchor" href="#files-included-"><span class="octicon octicon-link"></span></a>Files Included :</h2>
+
+<p>1- main.cpp                 - contains the graph adjacency list implementation and Dijkstra's algorithm for the shortest paths.
+2- BinaryHeap.h             - From the group's fourth assignment.
+3- QuadraticProbing.h       - From the group's fourth assignment. - One modification has been applied, the decreaskey() accepts doubles instead of integers.
+4- QuadraticProbing.cpp     - From the group's fourth assignment.
+5- fileReader.cpp           - Taken from Daniel's third assignment.Used for reading the file and checks for errors while reading.
+6- fileReader.hpp           - Taken from Daniel's third assignment
+7- vertex.hpp               - Contains vertex struct 
+8- CMakeLists.txt
+9- make file
+10- ReadMe.txt</p>
+
+<h2>
+<a name="important-functions-" class="anchor" href="#important-functions-"><span class="octicon octicon-link"></span></a>Important Functions :</h2>
+
+<p>******************PUBLIC OPERATIONS*********************
+ void insert( x )                     --&gt; Insert x ( a node ) into the heap
+ deleteMin( minItem )                 --&gt; Remove (and optionally return) smallest item
+ Comparable findMin( )                --&gt; Return smallest item
+ bool isEmpty( )                      --&gt; Return true if empty; else false
+ void makeEmpty( )                    --&gt; Remove all items 
+ void increaseKey(delta,key)          --&gt; Increases delta value then percolate down 
+ void decreaseKey(delta,key)          --&gt; Decreases delta value then percolate up
+ void removeKey(key)                  --&gt; Assigning a minimum key value, Percolate up till root then delete
+ void ds (int, vector&amp;)       --&gt; The main function in the program, takes two arguments, the first is the starting vertex and the second is a vector representing the graph, 
+                                         then applies Dijkstra's algorithm to all adjacent vertices and queue/ dequeue accordingly.If the current distance of a giving vertex is larger 
+                                         than the new distance to adjacent vertex + distance to starting vertex , then the vertex shortest distance is updated .
+ void openFile(const string &amp; file)   --&gt; reads the input file( contains graph units) line by line into a string. - Found in fileReader-
+ void removeSpecificChar(string&amp;,char)--&gt;  to remove specific chartype that maybe tainting the file.- Found in fileReader-
+ void removeReturnCarraige(string&amp;)   --&gt; to remove any carrages found in file .- Found in fileReader-</p>
+
+<h2>
+<a name="language-used-c-" class="anchor" href="#language-used-c-"><span class="octicon octicon-link"></span></a>Language Used: c++ </h2>
+
+<h2>
+<a name="compiling-instructions" class="anchor" href="#compiling-instructions"><span class="octicon octicon-link"></span></a>Compiling Instructions:</h2>
+
+<pre><code>                    In eniac,  use cmake "CMakeLists.txt" then run make
+</code></pre>
+
+<h2>
+<a name="running-instructions-" class="anchor" href="#running-instructions-"><span class="octicon octicon-link"></span></a>Running Instructions: </h2>
+
+<p>From command line window   : after make file is run, type      findPaths  
+where Graph_File is the text file that contains all the graph'e element as shown above , and the STARTING_VERTEX is the first vertex in the graph</p>
+
+<p>Known Bugs:
+----------   None; please let us know if you find any issues. </p>
+
+<h2>
+<a name="contacts" class="anchor" href="#contacts"><span class="octicon octicon-link"></span></a>Contacts:</h2>
+
+<p>Hani Aboudeshisha                          <a href="mailto:Hani.Aboudeshisha44@myhunter.cuny.edu">Hani.Aboudeshisha44@myhunter.cuny.edu</a>
+Grigoriy Zhenein                           <a href="mailto:gregory.zhen@gmail.com">gregory.zhen@gmail.com</a> 
+Daniel Fialkouvskey                        <a href="mailto:falconoflegnds@gmail.com">falconoflegnds@gmail.com</a> </p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Graph Representation maintained by <a href="https://github.com/HaniNYC">HaniNYC</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
